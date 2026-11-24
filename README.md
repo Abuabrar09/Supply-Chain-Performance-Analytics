@@ -6,7 +6,7 @@ End-to-end analysis of **10,324 real USAID health-commodity shipment lines (2006
 
 👉 **[View the interactive Tableau dashboards](https://public.tableau.com/app/profile/abrar.ahmed.syed4247/viz/SupplyChainShipmentPricingData_17952087968890/ExecutiveOverview)**
 
-![Executive Overview](images/dashboard_executive_overview.png)
+![Executive Overview](dashboard_executive_overview.png.png)
 
 ---
 
@@ -16,6 +16,10 @@ End-to-end analysis of **10,324 real USAID health-commodity shipment lines (2006
 2. How late are shipments, and does lateness depend on shipment mode or country?
 3. Is fulfillment more reliable from regional warehouses (RDC) or direct from the vendor?
 4. Which modes and lanes drive freight cost, and is faster shipping worth the premium?
+
+### On-time delivery trend
+
+![On-time trend](otd_trend.png.png)
 
 ## Key findings
 
@@ -45,8 +49,8 @@ End-to-end analysis of **10,324 real USAID health-commodity shipment lines (2006
 | **Supplier Scorecard** | Supplier score (0–100) by vendor, tier coloring, reliability vs freight-cost bubble chart |
 | **Fulfillment & Cost** | On-time % by product group and channel, freight cost per kg vs late % by mode, top 10 freight lanes |
 
-![Supplier Scorecard](images/dashboard_supplier_scorecard.png)
-![Fulfillment & Cost](images/dashboard_fulfillment_cost.png)
+![Supplier Scorecard](dashboard_supplier_scorecard.png.png)
+![Fulfillment & Cost](dashboard_fulfillment_cost.png.png)
 
 ## Data
 
@@ -66,7 +70,7 @@ End-to-end analysis of **10,324 real USAID health-commodity shipment lines (2006
 
 ```
 Raw CSV ──► Python cleaning ──► DuckDB SQL model & KPIs ──► Python statistics ──► Tableau dashboards
-           (clean_data.py)      (sql/*.sql)                  (analysis.py)        (Tableau Public)
+           (clean_data.py)      (*.sql)                     (analysis.py)        (Tableau Public)
 ```
 
 **KPI definitions**
@@ -87,31 +91,28 @@ Raw CSV ──► Python cleaning ──► DuckDB SQL model & KPIs ──► Py
 ## Repository structure
 
 ```
-supply-chain-performance-analytics/
+Supply-Chain-Performance-Analytics/
 ├── README.md
-├── clean_data.py                      # Step 3: cleaning + KPI columns
+├── clean_data.py                      # cleaning + KPI columns
 ├── run_sql.py                         # helper to run .sql files in DuckDB
-├── analysis.py                        # Step 5: statistical tests + charts
-├── notebooks/
-│   └── Supply_Chain_Project.ipynb     # full Colab workflow
-├── sql/
-│   ├── 01_model.sql                   # fact table, dimensions, data-quality check
-│   ├── 02_kpis.sql                    # headline KPIs, supplier scorecard, Pareto
-│   └── 03_delays_fulfillment_costs.sql
-└── images/                            # charts and dashboard screenshots
+├── analysis.py                        # statistical tests + charts
+├── 01_model.sql                       # fact table, dimensions, data-quality check
+├── 02_kpis.sql                        # headline KPIs, supplier scorecard, Pareto
+├── 03_delays_fulfillment_costs.sql    # delays, fulfillment, cost queries
+├── *.png                              # charts and dashboard screenshots
 ```
 
 ## How to run
 
-1. Open `notebooks/Supply_Chain_Project.ipynb` in Google Colab (or any Python 3 environment).
+1. Use Google Colab or any Python 3 environment.
 2. `pip install duckdb pandas scipy scikit-learn seaborn`
 3. Place the raw CSV in `data/raw/`, then run:
 
 ```bash
 python clean_data.py
-python run_sql.py sql/01_model.sql
-python run_sql.py sql/02_kpis.sql
-python run_sql.py sql/03_delays_fulfillment_costs.sql
+python run_sql.py 01_model.sql
+python run_sql.py 02_kpis.sql
+python run_sql.py 03_delays_fulfillment_costs.sql
 python analysis.py
 ```
 
